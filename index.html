@@ -13,6 +13,8 @@
             --dark-blue: #01579B;
             --white: #FFFFFF;
             --black: #333333;
+            --green: #4CAF50;
+            --orange: #FF9800;
         }
         
         * {
@@ -96,6 +98,27 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
+        .guide-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .guide-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .guide-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
         .simulator {
             display: flex;
             flex-direction: column;
@@ -144,16 +167,23 @@
             overflow: hidden;
         }
         
-        .plot-image img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
+        .plot-svg {
+            width: 100%;
+            height: 100%;
         }
         
         .plot-title {
             font-weight: bold;
             margin-bottom: 10px;
             color: var(--dark-blue);
+            text-align: center;
+        }
+        
+        .plot-description {
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
         }
         
         .diagnosis-options {
@@ -211,6 +241,7 @@
             margin-top: 20px;
             border-radius: 10px;
             display: none;
+            max-width: 600px;
         }
         
         .results.correct {
@@ -246,7 +277,7 @@
             background-color: var(--white);
             border-radius: 20px;
             padding: 30px;
-            max-width: 600px;
+            max-width: 800px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
@@ -282,6 +313,28 @@
             margin-top: 20px;
         }
         
+        .case-explanation {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 4px solid var(--dark-blue);
+            display: none;
+        }
+        
+        .case-explanation h4 {
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+        
+        .case-explanation ul {
+            margin-left: 20px;
+        }
+        
+        .case-explanation li {
+            margin-bottom: 8px;
+        }
+        
         .footer {
             text-align: center;
             padding: 20px;
@@ -289,8 +342,45 @@
             font-size: 0.9rem;
         }
         
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+        
+        .legend-normal {
+            background-color: #2196F3;
+        }
+        
+        .legend-blast {
+            background-color: #F44336;
+        }
+        
+        .legend-lymph {
+            background-color: #4CAF50;
+        }
+        
+        .legend-monocyte {
+            background-color: #FF9800;
+        }
+        
         @media (max-width: 768px) {
-            .intro-content {
+            .intro-content, .guide-content {
                 flex-direction: column;
             }
             
@@ -327,12 +417,69 @@
                     <ul>
                         <li>Confirmar a presença de blastos leucêmicos</li>
                         <li>Classificar o tipo de leucemia (linfoide ou mieloide)</li>
-                        <li>Avalir o potencial prognóstico</li>
+                        <li>Avaliar o potencial prognóstico</li>
                         <li>Monitorar a doença residual mínima após tratamento</li>
                     </ul>
                 </div>
                 <div class="intro-image">
                     <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Equipamento de citometria de fluxo">
+                </div>
+            </div>
+        </section>
+        
+        <section id="guide">
+            <h2>Como Funciona o Simulador</h2>
+            <div class="guide-content">
+                <div class="guide-text">
+                    <p>O simulador apresenta três casos clínicos com dados de citometria de fluxo. Para cada caso, você deverá analisar os gráficos e determinar se há evidência de leucemia aguda.</p>
+                    
+                    <h3>Fatores para diagnóstico positivo de leucemia:</h3>
+                    <ul>
+                        <li><strong>Presença de blastos anormais</strong>: Células imaturas em porcentagem significativa (&gt;20%)</li>
+                        <li><strong>Expressão anômala de marcadores</strong>: Padrões incomuns de CD45, CD34, CD117, etc.</li>
+                        <li><strong>População monoclonal</strong>: Expressão restrita de cadeias leves (kappa ou lambda)</li>
+                        <li><strong>Coexpressão de marcadores</strong>: Marcadores que normalmente não aparecem juntos</li>
+                    </ul>
+                    
+                    <h3>Como analisar os gráficos:</h3>
+                    <ul>
+                        <li><strong>CD45 vs SSC</strong>: Identifica blastos (CD45 fraco/intermediário, SSC baixo)</li>
+                        <li><strong>CD34 vs CD117</strong>: Identifica células progenitoras (positivas em leucemias)</li>
+                        <li><strong>CD19 vs CD10</strong>: Para leucemia linfoide aguda</li>
+                        <li><strong>CD13 vs CD33</strong>: Para leucemia mieloide aguda</li>
+                    </ul>
+                    
+                    <p>Após analisar os gráficos, clique em "Diagnóstico Positivo para Leucemia" se identificar evidências claras de leucemia aguda, ou "Sem Evidência de Leucemia" caso contrário.</p>
+                </div>
+                <div class="guide-image">
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color legend-blast"></div>
+                            <span>Blastos</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color legend-normal"></div>
+                            <span>Células Normais</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color legend-lymph"></div>
+                            <span>Linfócitos</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color legend-monocyte"></div>
+                            <span>Monócitos</span>
+                        </div>
+                    </div>
+                    
+                    <div class="cytometry-plot">
+                        <div class="plot-title">Exemplo: CD45 vs SSC</div>
+                        <div class="plot-image">
+                            <svg class="plot-svg" id="guidePlot"></svg>
+                        </div>
+                        <div class="plot-description">
+                            <p>Blastos aparecem na região inferior esquerda (CD45 fraco, SSC baixo)</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -346,7 +493,7 @@
                     <div class="cytometry-plot">
                         <div class="plot-title">CD45 vs SSC</div>
                         <div class="plot-image">
-                            <img src="https://images.unsplash.com/photo-1581595219318-a4e568a9a1e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300&q=80" alt="Plot CD45 vs SSC">
+                            <svg class="plot-svg" id="plot1"></svg>
                         </div>
                         <div class="plot-description">
                             <p>Análise de população celular por expressão de CD45 e granularidade (SSC)</p>
@@ -356,7 +503,7 @@
                     <div class="cytometry-plot">
                         <div class="plot-title">CD34 vs CD117</div>
                         <div class="plot-image">
-                            <img src="https://images.unsplash.com/photo-1581595219318-a4e568a9a1e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300&q=80" alt="Plot CD34 vs CD117">
+                            <svg class="plot-svg" id="plot2"></svg>
                         </div>
                         <div class="plot-description">
                             <p>Expressão de marcadores de células progenitoras</p>
@@ -390,6 +537,15 @@
                     </button>
                 </div>
             </div>
+            
+            <div class="case-explanation" id="caseExplanation">
+                <h4>Explicação dos Casos Clínicos:</h4>
+                <ul>
+                    <li><strong>Caso 1: Leucemia Mieloide Aguda (LMA)</strong> - Presença de blastos com CD45 fraco e expressão de CD34/CD117. Padrão típico de LMA.</li>
+                    <li><strong>Caso 2: Leucemia Linfoide Aguda (LLA)</strong> - Blastos com CD45 intermediário, expressão de CD34 e ausência de marcadores mieloides.</li>
+                    <li><strong>Caso 3: Pancitopenia sem Leucemia</strong> - Ausência de blastos, distribuição normal de células.</li>
+                </ul>
+            </div>
         </section>
         
         <div class="modal" id="helpModal">
@@ -397,22 +553,7 @@
                 <span class="close-modal" id="closeModal">&times;</span>
                 <h3><i class="fas fa-info-circle"></i> Informações do Caso</h3>
                 <div class="case-info" id="caseInfo">
-                    <p><strong>Paciente:</strong> Feminino, 58 anos</p>
-                    <p><strong>Apresentação:</strong> Fadiga, palidez e equimoses espontâneas</p>
-                    <p><strong>Exames laboratoriais:</strong></p>
-                    <ul>
-                        <li>Hemoglobina: 8.2 g/dL</li>
-                        <li>Leucócitos: 32.500/μL</li>
-                        <li>Plaquetas: 45.000/μL</li>
-                        <li>Blastos no sangue periférico: 40%</li>
-                    </ul>
-                    <p><strong>Análise citométrica:</strong></p>
-                    <ul>
-                        <li>População blástica CD45+ fraco</li>
-                        <li>Expressão de CD34, CD117 e HLA-DR</li>
-                        <li>Positividade para CD13, CD33 e CD64</li>
-                        <li>Negativo para marcadores linfoides</li>
-                    </ul>
+                    <!-- Informações do caso serão inseridas aqui -->
                 </div>
             </div>
         </div>
@@ -427,7 +568,7 @@
         // Dados dos casos
         const cases = [
             {
-                title: "Caso 1: Leucemia Mieloide Aguda",
+                title: "Caso 1: Leucemia Mieloide Aguda (LMA)",
                 info: {
                     patient: "Feminino, 58 anos",
                     presentation: "Fadiga, palidez e equimoses espontâneas",
@@ -444,10 +585,23 @@
                         "Negativo para marcadores linfoides"
                     ]
                 },
-                correctAnswer: "positive"
+                plots: {
+                    plot1: {
+                        type: "cd45-ssc",
+                        population: "blastos",
+                        pattern: "LMA"
+                    },
+                    plot2: {
+                        type: "cd34-cd117",
+                        population: "blastos",
+                        pattern: "LMA"
+                    }
+                },
+                correctAnswer: "positive",
+                explanation: "Este caso demonstra uma população anormal de blastos (células vermelhas) com expressão fraca de CD45 e baixa granularidade (SSC). A expressão de CD34 e CD117 indica células progenitoras mieloides, compatível com Leucemia Mieloide Aguda."
             },
             {
-                title: "Caso 2: Leucemia Linfoide Aguda",
+                title: "Caso 2: Leucemia Linfoide Aguda (LLA)",
                 info: {
                     patient: "Masculino, 12 anos",
                     presentation: "Febre, dor óssea e linfadenopatia cervical",
@@ -464,7 +618,20 @@
                         "Negativo para marcadores mieloides"
                     ]
                 },
-                correctAnswer: "positive"
+                plots: {
+                    plot1: {
+                        type: "cd45-ssc",
+                        population: "blastos",
+                        pattern: "LLA"
+                    },
+                    plot2: {
+                        type: "cd34-cd117",
+                        population: "blastos",
+                        pattern: "LLA"
+                    }
+                },
+                correctAnswer: "positive",
+                explanation: "Neste caso, observa-se uma população blástica com expressão intermediária de CD45 e baixa granularidade. A expressão de CD34 sem CD117, junto com marcadores linfoides (CD19, CD10), é característica de Leucemia Linfoide Aguda."
             },
             {
                 title: "Caso 3: Pancitopenia sem Leucemia",
@@ -484,7 +651,20 @@
                         "Padrão compatível com anemia aplástica"
                     ]
                 },
-                correctAnswer: "negative"
+                plots: {
+                    plot1: {
+                        type: "cd45-ssc",
+                        population: "normal",
+                        pattern: "normal"
+                    },
+                    plot2: {
+                        type: "cd34-cd117",
+                        population: "normal",
+                        pattern: "normal"
+                    }
+                },
+                correctAnswer: "negative",
+                explanation: "Este caso mostra uma distribuição celular normal sem população blástica. As células se distribuem nas regiões esperadas para linfócitos, monócitos e granulócitos. A ausência de blastos e expressão anômala de marcadores indica que não há evidência de leucemia."
             }
         ];
         
@@ -499,11 +679,195 @@
         const negativeBtn = document.getElementById('negativeBtn');
         const nextCaseBtn = document.getElementById('nextCaseBtn');
         const restartBtn = document.getElementById('restartBtn');
+        const plot1 = document.getElementById('plot1');
+        const plot2 = document.getElementById('plot2');
+        const guidePlot = document.getElementById('guidePlot');
+        const caseExplanation = document.getElementById('caseExplanation');
         
         // Estado do simulador
         let currentCaseIndex = 0;
         let casesCompleted = 0;
         let score = 0;
+        
+        // Funções para gerar os gráficos
+        function generatePlot(svgElement, plotData) {
+            const width = 300;
+            const height = 280;
+            const margin = { top: 20, right: 20, bottom: 40, left: 40 };
+            
+            // Área de plotagem dentro dos eixos
+            const plotWidth = width - margin.left - margin.right;
+            const plotHeight = height - margin.top - margin.bottom;
+            
+            svgElement.innerHTML = '';
+            
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", "100%");
+            svg.setAttribute("height", "100%");
+            svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+            
+            // Eixos
+            const xAxis = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            xAxis.setAttribute("x1", margin.left);
+            xAxis.setAttribute("y1", height - margin.bottom);
+            xAxis.setAttribute("x2", width - margin.right);
+            xAxis.setAttribute("y2", height - margin.bottom);
+            xAxis.setAttribute("stroke", "#333");
+            xAxis.setAttribute("stroke-width", "2");
+            svg.appendChild(xAxis);
+            
+            const yAxis = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            yAxis.setAttribute("x1", margin.left);
+            yAxis.setAttribute("y1", margin.top);
+            yAxis.setAttribute("x2", margin.left);
+            yAxis.setAttribute("y2", height - margin.bottom);
+            yAxis.setAttribute("stroke", "#333");
+            yAxis.setAttribute("stroke-width", "2");
+            svg.appendChild(yAxis);
+            
+            // Rótulos dos eixos
+            const xLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            xLabel.setAttribute("x", width / 2);
+            xLabel.setAttribute("y", height - 5);
+            xLabel.setAttribute("text-anchor", "middle");
+            xLabel.setAttribute("fill", "#333");
+            xLabel.setAttribute("font-size", "12");
+            xLabel.textContent = plotData.type === "cd45-ssc" ? "CD45" : "CD34";
+            svg.appendChild(xLabel);
+            
+            const yLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            yLabel.setAttribute("x", 5);
+            yLabel.setAttribute("y", height / 2);
+            yLabel.setAttribute("text-anchor", "middle");
+            yLabel.setAttribute("fill", "#333");
+            yLabel.setAttribute("font-size", "12");
+            yLabel.setAttribute("transform", `rotate(-90, 5, ${height / 2})`);
+            yLabel.textContent = plotData.type === "cd45-ssc" ? "SSC" : "CD117";
+            svg.appendChild(yLabel);
+            
+            // Título do gráfico
+            const title = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            title.setAttribute("x", width / 2);
+            title.setAttribute("y", 15);
+            title.setAttribute("text-anchor", "middle");
+            title.setAttribute("fill", "#333");
+            title.setAttribute("font-weight", "bold");
+            title.setAttribute("font-size", "14");
+            title.textContent = plotData.type === "cd45-ssc" ? "CD45 vs SSC" : "CD34 vs CD117";
+            svg.appendChild(title);
+            
+            // Gerar pontos baseados no padrão e tipo de gráfico
+            const numPoints = plotData.pattern === "normal" ? 200 : 250;
+            
+            for (let i = 0; i < numPoints; i++) {
+                const point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                point.setAttribute("r", "2.5");
+                
+                let x, y, color;
+                
+                if (plotData.pattern === "normal") {
+                    // Distribuição normal - caso 3
+                    if (i < 80) {
+                        // Linfócitos (CD45 alto, SSC baixo)
+                        x = margin.left + Math.random() * plotWidth * 0.7 + plotWidth * 0.3;
+                        y = margin.top + Math.random() * plotHeight * 0.3 + plotHeight * 0.7;
+                        color = "#4CAF50"; // Verde
+                    } else if (i < 140) {
+                        // Monócitos (CD45 moderado, SSC moderado)
+                        x = margin.left + Math.random() * plotWidth * 0.5 + plotWidth * 0.25;
+                        y = margin.top + Math.random() * plotHeight * 0.4 + plotHeight * 0.3;
+                        color = "#FF9800"; // Laranja
+                    } else {
+                        // Granulócitos (CD45 moderado, SSC alto)
+                        x = margin.left + Math.random() * plotWidth * 0.4 + plotWidth * 0.3;
+                        y = margin.top + Math.random() * plotHeight * 0.3;
+                        color = "#2196F3"; // Azul
+                    }
+                    
+                    // Para CD34 vs CD117 no caso normal
+                    if (plotData.type === "cd34-cd117") {
+                        // Na medula óssea normal, poucas células são CD34+ ou CD117+
+                        if (i < 190) {
+                            // Negativo para ambos
+                            x = margin.left + Math.random() * plotWidth * 0.4;
+                            y = margin.top + Math.random() * plotHeight * 0.4 + plotHeight * 0.5;
+                            color = "#2196F3"; // Azul
+                        } else if (i < 195) {
+                            // CD34+ fraco
+                            x = margin.left + Math.random() * plotWidth * 0.3 + plotWidth * 0.6;
+                            y = margin.top + Math.random() * plotHeight * 0.3;
+                            color = "#4CAF50"; // Verde
+                        } else {
+                            // CD117+ fraco
+                            x = margin.left + Math.random() * plotWidth * 0.3;
+                            y = margin.top + Math.random() * plotHeight * 0.3;
+                            color = "#FF9800"; // Laranja
+                        }
+                    }
+                } else if (plotData.pattern === "LMA") {
+                    // Padrão LMA
+                    if (i < 100) {
+                        // Células normais (linfócitos)
+                        x = margin.left + Math.random() * plotWidth * 0.7 + plotWidth * 0.3;
+                        y = margin.top + Math.random() * plotHeight * 0.3 + plotHeight * 0.7;
+                        color = "#4CAF50"; // Verde
+                    } else if (i < 180) {
+                        // Células normais (monócitos/granulócitos)
+                        x = margin.left + Math.random() * plotWidth * 0.5 + plotWidth * 0.25;
+                        y = margin.top + Math.random() * plotHeight * 0.5;
+                        color = "#2196F3"; // Azul
+                    } else {
+                        // Blastos
+                        if (plotData.type === "cd45-ssc") {
+                            // CD45 fraco, SSC baixo
+                            x = margin.left + Math.random() * plotWidth * 0.2;
+                            y = margin.top + Math.random() * plotHeight * 0.2 + plotHeight * 0.7;
+                        } else {
+                            // CD34 e CD117 positivos
+                            x = margin.left + Math.random() * plotWidth * 0.6 + plotWidth * 0.4;
+                            y = margin.top + Math.random() * plotHeight * 0.6 + plotHeight * 0.4;
+                        }
+                        color = "#F44336"; // Vermelho
+                    }
+                } else if (plotData.pattern === "LLA") {
+                    // Padrão LLA
+                    if (i < 100) {
+                        // Células normais (linfócitos)
+                        x = margin.left + Math.random() * plotWidth * 0.7 + plotWidth * 0.3;
+                        y = margin.top + Math.random() * plotHeight * 0.3 + plotHeight * 0.7;
+                        color = "#4CAF50"; // Verde
+                    } else if (i < 180) {
+                        // Células normais (monócitos/granulócitos)
+                        x = margin.left + Math.random() * plotWidth * 0.5 + plotWidth * 0.25;
+                        y = margin.top + Math.random() * plotHeight * 0.5;
+                        color = "#2196F3"; // Azul
+                    } else {
+                        // Blastos
+                        if (plotData.type === "cd45-ssc") {
+                            // CD45 intermediário, SSC baixo
+                            x = margin.left + Math.random() * plotWidth * 0.4 + plotWidth * 0.3;
+                            y = margin.top + Math.random() * plotHeight * 0.2 + plotHeight * 0.7;
+                        } else {
+                            // CD34 positivo, CD117 negativo
+                            x = margin.left + Math.random() * plotWidth * 0.6 + plotWidth * 0.4;
+                            y = margin.top + Math.random() * plotHeight * 0.2;
+                        }
+                        color = "#F44336"; // Vermelho
+                    }
+                }
+                
+                // Garantir que os pontos estão dentro da área de plotagem
+                x = Math.max(margin.left, Math.min(width - margin.right, x));
+                y = Math.max(margin.top, Math.min(height - margin.bottom, y));
+                
+                point.setAttribute("fill", color);
+                point.setAttribute("cx", x);
+                point.setAttribute("cy", y);
+                svg.appendChild(point);
+            }
+            
+            svgElement.appendChild(svg);
+        }
         
         // Funções
         function loadCase(index) {
@@ -511,6 +875,10 @@
             
             // Atualizar contador
             caseCounter.textContent = `Caso ${index + 1} de ${cases.length}`;
+            
+            // Gerar gráficos
+            generatePlot(plot1, currentCase.plots.plot1);
+            generatePlot(plot2, currentCase.plots.plot2);
             
             // Limpar resultados anteriores
             resultsDiv.style.display = 'none';
@@ -566,6 +934,7 @@
                 resultsDiv.innerHTML = `
                     <h3><i class="fas fa-check-circle"></i> Diagnóstico Correto!</h3>
                     <p>Você acertou o diagnóstico deste caso.</p>
+                    <p>${currentCase.explanation}</p>
                 `;
                 score++;
             } else {
@@ -577,6 +946,7 @@
                     <h3><i class="fas fa-times-circle"></i> Diagnóstico Incorreto</h3>
                     <p>O diagnóstico correto era: ${correctDiagnosis}</p>
                     <p>${currentCase.title}</p>
+                    <p>${currentCase.explanation}</p>
                 `;
             }
             
@@ -603,6 +973,9 @@
             currentCaseIndex = 0;
             casesCompleted = 0;
             score = 0;
+            nextCaseBtn.textContent = 'Próximo Caso';
+            nextCaseBtn.style.display = 'inline-block';
+            caseExplanation.style.display = 'none';
             loadCase(currentCaseIndex);
         }
         
@@ -618,11 +991,24 @@
                 </button>
             `;
             
+            // Mostrar explicação dos casos
+            caseExplanation.style.display = 'block';
+            
             // Esconder botão de próximo caso
             nextCaseBtn.style.display = 'none';
             
             // Adicionar evento ao botão de reinício na tela final
             document.getElementById('restartFinalBtn').addEventListener('click', restartSimulation);
+        }
+        
+        // Gerar gráfico para a seção de guia
+        function generateGuidePlot() {
+            const plotData = {
+                type: "cd45-ssc",
+                population: "mixed",
+                pattern: "guide"
+            };
+            generatePlot(guidePlot, plotData);
         }
         
         // Event Listeners
@@ -637,8 +1023,9 @@
         nextCaseBtn.addEventListener('click', nextCase);
         restartBtn.addEventListener('click', restartSimulation);
         
-        // Inicializar o primeiro caso
+        // Inicializar
         loadCase(currentCaseIndex);
+        generateGuidePlot();
     </script>
 </body>
 </html>
