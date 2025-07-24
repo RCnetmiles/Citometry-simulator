@@ -6,563 +6,116 @@
     <title>Simulador de Citometria - Diagnóstico de Leucemia Aguda</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --blood-red: #8A0303;
-            --ice-blue: #E1F5FE;
-            --light-blue: #B3E5FC;
-            --dark-blue: #01579B;
-            --white: #FFFFFF;
-            --black: #333333;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--ice-blue);
-            color: var(--black);
-            line-height: 1.6;
-            padding: 20px;
-            background-image: linear-gradient(135deg, var(--ice-blue) 0%, var(--light-blue) 100%);
-        }
-        
-        header {
-            text-align: center;
-            padding: 20px 0;
-            background-color: var(--blood-red);
-            color: var(--white);
-            border-radius: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
-        
-        header p {
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        section {
-            background-color: var(--white);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        section h2 {
-            color: var(--blood-red);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light-blue);
-            font-size: 1.6rem;
-        }
-        
-        .intro-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-        }
-        
-        .intro-text {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .intro-image {
-            flex: 1;
-            min-width: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: #f0f0f0;
-            min-height: 250px;
-        }
-        
-        .intro-image img {
-            max-width: 100%;
-            height: auto;
-        }
-        
-        .guide-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-        }
-        
-        .guide-text {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .guide-image {
-            flex: 1;
-            min-width: 300px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .simulator {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .case-counter {
-            background-color: var(--blood-red);
-            color: var(--white);
-            padding: 8px 20px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        
-        .case-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            width: 100%;
-            margin-bottom: 25px;
-        }
-        
-        .cytometry-plot {
-            flex: 1;
-            min-width: 300px;
-            background-color: #f8f8f8;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .plot-image {
-            width: 100%;
-            height: 250px;
-            background-color: #f0f0f0;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .plot-image img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-        
-        .plot-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: var(--dark-blue);
-            text-align: center;
-            font-size: 1.1rem;
-        }
-        
-        .plot-description {
-            font-size: 0.9rem;
-            text-align: center;
-            margin-top: 10px;
-            color: #666;
-        }
-        
-        .diagnosis-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
-            justify-content: center;
-            width: 100%;
-        }
-        
-        .btn {
-            padding: 12px 25px;
-            border-radius: 50px;
-            border: none;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            min-width: 250px;
-            justify-content: center;
-        }
-        
-        .btn-primary {
-            background-color: var(--blood-red);
-            color: var(--white);
-        }
-        
-        .btn-secondary {
-            background-color: var(--dark-blue);
-            color: var(--white);
-        }
-        
-        .btn-tertiary {
-            background-color: #4CAF50;
-            color: var(--white);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--blood-red);
-            color: var(--blood-red);
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .help-btn {
-            margin-top: 15px;
-            background-color: var(--dark-blue);
-        }
-        
-        .results {
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 10px;
-            display: none;
-            max-width: 600px;
-            width: 100%;
-        }
-        
-        .results.correct {
-            background-color: #e8f5e9;
-            border: 2px solid #4CAF50;
-            color: #2E7D32;
-        }
-        
-        .results.incorrect {
-            background-color: #ffebee;
-            border: 2px solid #f44336;
-            color: #c62828;
-        }
-        
-        .results h3 {
-            margin-bottom: 10px;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
-            background-color: var(--white);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 800px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--blood-red);
-        }
-        
-        .modal-content h3 {
-            color: var(--blood-red);
-            margin-bottom: 15px;
-        }
-        
-        .case-info {
-            margin-bottom: 20px;
-        }
-        
-        .case-info p {
-            margin-bottom: 10px;
-        }
-        
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            width: 100%;
-        }
-        
-        .case-explanation {
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 30px;
-            border-left: 4px solid var(--dark-blue);
-            display: none;
-        }
-        
-        .case-explanation h4 {
-            color: var(--dark-blue);
-            margin-bottom: 15px;
-        }
-        
-        .case-explanation ul {
-            margin-left: 20px;
-        }
-        
-        .case-explanation li {
-            margin-bottom: 8px;
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--dark-blue);
-            font-size: 0.9rem;
-        }
-        
-        .legend {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
-        }
-        
-        .legend-color {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-        }
-        
-        .legend-normal {
-            background-color: #2196F3;
-        }
-        
-        .legend-blast {
-            background-color: #F44336;
-        }
-        
-        .legend-lymph {
-            background-color: #4CAF50;
-        }
-        
-        .legend-monocyte {
-            background-color: #FF9800;
-        }
-        
-        /* Mobile styles */
-        @media (max-width: 768px) {
-            .intro-content, .guide-content {
-                flex-direction: column;
-            }
-            
-            .case-container {
-                flex-direction: column;
-            }
-            
-            .cytometry-plot {
-                min-width: 100%;
-            }
-            
-            .plot-image {
-                height: 200px;
-            }
-            
-            .btn {
-                width: 100%;
-            }
-            
-            header h1 {
-                font-size: 1.8rem;
-            }
-            
-            section {
-                padding: 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .diagnosis-options {
-                flex-direction: column;
-            }
-            
-            .controls {
-                flex-direction: column;
-            }
-            
-            .btn {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-            
-            section h2 {
-                font-size: 1.4rem;
-            }
-        }
+        :root { --blood-red: #8A0303; --ice-blue: #E1F5FE; --light-blue: #B3E5FC; --dark-blue: #01579B; --white: #FFFFFF; --black: #333333; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-image: linear-gradient(135deg, var(--ice-blue), var(--light-blue)); color:var(--black); padding:20px; }
+        header { text-align:center; padding:20px; background-color:var(--blood-red); color:var(--white); border-radius:20px; margin-bottom:30px; }
+        .container { max-width:1200px; margin:0 auto; }
+        section { background:var(--white); border-radius:20px; padding:25px; margin-bottom:25px; }
+        section h2 { color:var(--blood-red); margin-bottom:20px; border-bottom:2px solid var(--light-blue); padding-bottom:10px; }
+        /* Introdução */
+        .intro-content { display:flex; gap:25px; flex-wrap:wrap; }
+        .intro-text { flex:1; min-width:300px; }
+        .intro-image { flex:1; min-width:300px; display:flex; align-items:center; justify-content:center; border-radius:10px; background:#f0f0f0; }
+        .intro-image img { max-width:100%; height:auto; }
+        /* Guia */
+        .guide-content { display:flex; gap:25px; flex-wrap:wrap; }
+        .guide-text { flex:1; min-width:300px; }
+        .guide-images { flex:1; min-width:300px; display:flex; flex-direction:column; gap:15px; }
+        .guide-images img { width:100%; height:auto; border-radius:10px; background:#f0f0f0; }
+        /* Simulador */
+        .simulator { text-align:center; }
+        .case-counter { background:var(--blood-red); color:var(--white); padding:8px 20px; border-radius:20px; margin-bottom:20px; font-weight:bold; }
+        .case-container { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; margin-bottom:25px; }
+        .cytometry-plot { flex:1; min-width:250px; background:#f8f8f8; border:1px solid #ddd; border-radius:10px; padding:15px; }
+        .plot-title { font-weight:bold; margin-bottom:10px; color:var(--dark-blue); }
+        .plot-image { width:100%; height:250px; background:#f0f0f0; border-radius:8px; margin-bottom:15px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+        .plot-image img { max-width:100%; max-height:100%; object-fit:contain; }
+        .diagnosis-options { display:flex; gap:15px; flex-wrap:wrap; justify-content:center; }
+        .btn { padding:12px 25px; border-radius:50px; border:none; font-size:1rem; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:8px; }
+        .btn-primary { background:var(--blood-red); color:var(--white); }
+        .btn-secondary { background:var(--dark-blue); color:var(--white); }
+        .btn-tertiary { background:#4CAF50; color:var(--white); }
+        .btn-outline { background:transparent; border:2px solid var(--blood-red); color:var(--blood-red); }
+        .results { display:none; padding:20px; border-radius:10px; max-width:600px; margin:20px auto; }
+        .results.correct { background:#e8f5e9; border:2px solid #4CAF50; color:#2E7D32; }
+        .results.incorrect { background:#ffebee; border:2px solid #f44336; color:#c62828; }
+        .controls { display:flex; gap:15px; justify-content:center; }
+        .case-explanation { display:none; background:#f9f9f9; padding:20px; border-left:4px solid var(--dark-blue); border-radius:10px; }
+        @media(max-width:768px){.intro-content,.guide-content{flex-direction:column;} .case-container{flex-direction:column;} .plot-image{height:200px;}}
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-microscope"></i> Simulador de Citometria de Fluxo</h1>
-            <p>Pratique o diagnóstico de Leucemia Aguda através de casos simulados</p>
-        </header>
-        
-        <section id="introduction">
-            <h2>O que é Citometria de Fluxo?</h2>
-            <div class="intro-content">
-                <div class="intro-text">
-                    <p>A citometria de fluxo é uma técnica laboratorial que permite a análise de diversas características físicas e químicas de células individuais em suspensão, enquanto fluem em um fluxo laminar através de um feixe de luz.</p>
-                    <p>Esta técnica é fundamental no diagnóstico de leucemias, pois permite identificar células anormais através de marcadores específicos presentes em sua superfície.</p>
-                    <p>No diagnóstico de leucemia aguda, a citometria de fluxo ajuda a:</p>
-                    <ul>
-                        <li>Confirmar a presença de blastos leucêmicos</li>
-                        <li>Classificar o tipo de leucemia (linfoide ou mieloide)</li>
-                        <li>Avaliar o potencial prognóstico</li>
-                        <li>Monitorar a doença residual mínima após tratamento</li>
-                    </ul>
-                </div>
-                <div class="intro-image">
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Equipamento de citometria de fluxo">
-                    <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
-                    </div>
+<div class="container">
+    <header>
+        <h1><i class="fas fa-microscope"></i> Simulador de Citometria de Fluxo</h1>
+        <p>Pratique o diagnóstico de Leucemia Aguda através de casos simulados</p>
+    </header>
+
+    <section id="introduction">
+        <h2>O que é Citometria de Fluxo?</h2>
+        <div class="intro-content">
+            <div class="intro-text">
+                <p>A citometria de fluxo é uma técnica laboratorial que permite a análise de diversas características físicas e químicas de células individuais em suspensão, enquanto fluem em um fluxo laminar através de um feixe de luz.</p>
+                <p>Esta técnica é fundamental no diagnóstico de leucemias, pois permite identificar células anormais através de marcadores específicos presentes em sua superfície.</p>
+                <p>No diagnóstico de leucemia aguda, a citometria de fluxo ajuda a:</p>
+                <ul>
+                    <li>Confirmar a presença de blastos leucêmicos</li>
+                    <li>Classificar o tipo de leucemia (linfoide ou mieloide)</li>
+                    <li>Avaliar o potencial prognóstico</li>
+                    <li>Monitorar a doença residual mínima após tratamento</li>
+                </ul>
+            </div>
+            <div class="intro-image">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Equipamento de citometria de fluxo">
+            </div>
+        </div>
+    </section>
+
+    <section id="guide">
+        <h2>Como Funciona o Simulador</h2>
+        <div class="guide-content">
+            <div class="guide-text">
+                <div style="background:#f9f9f9; padding:20px; border-radius:10px; border-left:4px solid var(--dark-blue);">
+                    <p>O simulador apresenta três casos clínicos com dados de citometria de fluxo. Para cada caso, você deverá analisar os gráficos e determinar se há evidência de leucemia aguda ou linfoide de linhagem T/B.</p>
+                    <p>Siga as informações das tabelas quanto à expressão dos CDs para cada caso.</p>
                 </div>
             </div>
-        </section>
-        
-        <section id="guide">
-            <h2>Como Funciona o Simulador</h2>
-            <div class="guide-content">
-                <div class="guide-text">
-                    <!-- Espaço para adicionar texto explicativo posteriormente -->
-                    <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; border-left: 4px solid var(--dark-blue);">
-                        <p>O simulador apresenta três casos clínicos com dados de citometria de fluxo. Para cada caso, você deverá analisar os gráficos e determinar se há evidência de leucemia aguda ou linfoide de linhagem T/B.</p>
-                        <p>Siga as informações das tabelas quanto a expressão dos CDs para cada caso.</p>
-                    </div>
+            <div class="guide-images">
+                <img src="https://i.postimg.cc/DfBXNmFp/0.jpg" alt="Explicação 1">
+                <img src="https://i.postimg.cc/YCmLj3FT/1.jpg" alt="Explicação 2">
+            </div>
+        </div>
+    </section>
+
+    <section id="simulator">
+        <h2>Simulador de Diagnóstico</h2>
+        <div class="simulator">
+            <div class="case-counter">Caso 1 de 3</div>
+            <div class="case-container">
+                <div class="cytometry-plot">
+                    <div class="plot-title">Gráfico 1</div>
+                    <div class="plot-image"><img id="caseImg0" src="" alt="Caso imagem 1"></div>
                 </div>
-                <div class="guide-image">
-                    <img src="https://drive.google.com/uc?export=view&id=1hdT9bEv-J-XLVh6WKljK85kbw5RtxA4a">
-                    <div style="width: 100%; height: 250px; background-color: #f0f0f0; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                    <img src="https://drive.google.com/uc?export=view&id=1hYMpiMHhXE5deQkELaO2zsGDmjjX0Hu7">
-                    <div style="width: 100%; height: 250px; background-color: #f0f0f0; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                    </div>
-                    <!-- Espaço para adicionar legenda posteriormente -->
-                    <div style="margin-top: 15px; text-align: center; color: #666;">
-                        <p>Adicione aqui a legenda para os gráficos</p>
-                    </div>
+                <div class="cytometry-plot">
+                    <div class="plot-title">Gráfico 2</div>
+                    <div class="plot-image"><img id="caseImg1" src="" alt="Caso imagem 2"></div>
+                </div>
+                <div class="cytometry-plot">
+                    <div class="plot-title">Gráfico 3</div>
+                    <div class="plot-image"><img id="caseImg2" src="" alt="Caso imagem 3"></div>
                 </div>
             </div>
-        </section>
-        
-        <section id="simulator">
-            <h2>Simulador de Diagnóstico</h2>
-            <div class="simulator">
-                <div class="case-counter">Caso 1 de 3</div>
-                
-                <div class="case-container">
-                    <div class="cytometry-plot">
-                        <div class="plot-title">Gráfico 1</div>
-                        <div class="plot-image">
-                            <!-- Espaço para adicionar imagem 1 -->
-                            <i class="fas fa-chart-bar" style="font-size: 3rem; color: #ccc;"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="cytometry-plot">
-                        <div class="plot-title">Gráfico 2</div>
-                        <div class="plot-image">
-                            <!-- Espaço para adicionar imagem 2 -->
-                            <i class="fas fa-chart-bar" style="font-size: 3rem; color: #ccc;"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="cytometry-plot">
-                        <div class="plot-title">Gráfico 3</div>
-                        <div class="plot-image">
-                            <!-- Espaço para adicionar imagem 3 -->
-                            <i class="fas fa-chart-bar" style="font-size: 3rem; color: #ccc;"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn help-btn" id="helpBtn">
-                    <i class="fas fa-question-circle"></i> Ajuda (Ver informações do caso)
-                </button>
-                
-                <div class="diagnosis-options">
-                    <button class="btn btn-primary" id="linfT">
-                        <i class="fas fa-check"></i> Leucemia Linfoide T
-                    </button>
-                    <button class="btn btn-secondary" id="mieloide">
-                        <i class="fas fa-check"></i> Leucemia Mieloide
-                    </button>
-                    <button class="btn btn-tertiary" id="linfB">
-                        <i class="fas fa-check"></i> Leucemia Linfoide B
-                    </button>
-                </div>
-                
-                <div class="results" id="results">
-                    <!-- Resultado será inserido aqui -->
-                </div>
-                
-                <div class="controls">
-                    <button class="btn btn-outline" id="nextCaseBtn">
-                        <i class="fas fa-arrow-right"></i> Próximo Caso
-                    </button>
-                    <button class="btn btn-outline" id="restartBtn">
-                        <i class="fas fa-redo"></i> Reiniciar Simulação
-                    </button>
-                </div>
+            <div class="diagnosis-options">
+                <button class="btn btn-primary" id="linfT"><i class="fas fa-check"></i> Leucemia Linfoide T</button>
+                <button class="btn btn-secondary" id="mieloide"><i class="fas fa-check"></i> Leucemia Mieloide</button>
+                <button class="btn btn-tertiary" id="linfB"><i class="fas fa-check"></i> Leucemia Linfoide B</button>
             </div>
-            
+            <div class="results" id="results"></div>
+            <div class="controls">
+                <button class="btn btn-outline" id="nextCaseBtn"><i class="fas fa-arrow-right"></i> Próximo Caso</button>
+                <button class="btn btn-outline" id="restartBtn"><i class="fas fa-redo"></i> Reiniciar Simulação</button>
+            </div>
             <div class="case-explanation" id="caseExplanation">
                 <h4>Explicação dos Casos Clínicos:</h4>
                 <ul>
@@ -571,260 +124,49 @@
                     <li><strong>Caso 3: Leucemia Linfoide B</strong> - Descrição do caso 3.</li>
                 </ul>
             </div>
-        </section>
-        
-        <div class="modal" id="helpModal">
-            <div class="modal-content">
-                <span class="close-modal" id="closeModal">&times;</span>
-                <h3><i class="fas fa-info-circle"></i> Informações do Caso</h3>
-                <div class="case-info" id="caseInfo">
-                    <!-- Informações do caso serão inseridas aqui -->
-                </div>
-            </div>
         </div>
-        
-        <div class="footer">
-            <p>Simulador de Citometria para Diagnóstico de Leucemia Aguda - Propósito Educacional</p>
-            <p>Desenvolvido por alunos de Biomedicina</p>
-        </div>
+    </section>
+
+    <div class="footer">
+        <p>Simulador de Citometria para Diagnóstico de Leucemia Aguda - Propósito Educacional</p>
+        <p>Desenvolvido por alunos de Biomedicina</p>
     </div>
-    
-    <script>
-        // Dados dos casos
-        const cases = [
-            {
-                title: "Caso 1: Leucemia Linfoide T",
-                info: {
-                    patient: "Masculino, 15 anos",
-                    presentation: "Febre, sudorese noturna e linfadenopatia",
-                    exams: [
-                        "Hemoglobina: 7.5 g/dL",
-                        "Leucócitos: 48.000/μL",
-                        "Plaquetas: 60.000/μL",
-                        "Blastos no sangue periférico: 65%"
-                    ],
-                    cytometry: [
-                        "Expressão de CD7, CD5 e CD2",
-                        "Positividade para CD3 e CD4",
-                        "Negativo para marcadores mieloides",
-                        "Ausência de CD19 e CD20"
-                    ]
-                },
-                correctAnswer: "linfT",
-                explanation: "Este caso demonstra uma população blástica com expressão de marcadores T (CD3, CD4, CD7), compatível com Leucemia Linfoide T."
-            },
-            {
-                title: "Caso 2: Leucemia Mieloide Aguda",
-                info: {
-                    patient: "Feminino, 58 anos",
-                    presentation: "Fadiga, palidez e equimoses espontâneas",
-                    exams: [
-                        "Hemoglobina: 8.2 g/dL",
-                        "Leucócitos: 32.500/μL",
-                        "Plaquetas: 45.000/μL",
-                        "Blastos no sangue periférico: 40%"
-                    ],
-                    cytometry: [
-                        "População blástica CD45+ fraco",
-                        "Expressão de CD34, CD117 e HLA-DR",
-                        "Positividade para CD13, CD33 e CD64",
-                        "Negativo para marcadores linfoides"
-                    ]
-                },
-                correctAnswer: "mieloide",
-                explanation: "Este caso demonstra uma população anormal de blastos com expressão de marcadores mieloides (CD13, CD33) e células progenitoras (CD34, CD117), compatível com Leucemia Mieloide Aguda."
-            },
-            {
-                title: "Caso 3: Leucemia Linfoide B",
-                info: {
-                    patient: "Masculino, 8 anos",
-                    presentation: "Dor óssea, febre e petéquias",
-                    exams: [
-                        "Hemoglobina: 6.8 g/dL",
-                        "Leucócitos: 85.000/μL",
-                        "Plaquetas: 38.000/μL",
-                        "Blastos no sangue periférico: 80%"
-                    ],
-                    cytometry: [
-                        "Expressão de CD19, CD10 e CD22",
-                        "Positividade para CD79a e CD20",
-                        "Negativo para marcadores mieloides",
-                        "Ausência de CD3 e CD7"
-                    ]
-                },
-                correctAnswer: "linfB",
-                explanation: "Este caso demonstra uma população blástica com expressão de marcadores B (CD19, CD20, CD22), compatível com Leucemia Linfoide B."
-            }
-        ];
-        
-        // Elementos DOM
-        const caseCounter = document.querySelector('.case-counter');
-        const caseInfo = document.getElementById('caseInfo');
-        const resultsDiv = document.getElementById('results');
-        const helpModal = document.getElementById('helpModal');
-        const closeModal = document.getElementById('closeModal');
-        const helpBtn = document.getElementById('helpBtn');
-        const linfT = document.getElementById('linfT');
-        const mieloide = document.getElementById('mieloide');
-        const linfB = document.getElementById('linfB');
-        const nextCaseBtn = document.getElementById('nextCaseBtn');
-        const restartBtn = document.getElementById('restartBtn');
-        const caseExplanation = document.getElementById('caseExplanation');
-        
-        // Estado do simulador
-        let currentCaseIndex = 0;
-        let casesCompleted = 0;
-        let score = 0;
-        
-        // Funções
-        function loadCase(index) {
-            const currentCase = cases[index];
-            
-            // Atualizar contador
-            caseCounter.textContent = `Caso ${index + 1} de ${cases.length}`;
-            
-            // Limpar resultados anteriores
-            resultsDiv.style.display = 'none';
-            resultsDiv.className = 'results';
-            
-            // Ativar botões
-            linfT.disabled = false;
-            mieloide.disabled = false;
-            linfB.disabled = false;
-            
-            // Atualizar informações do caso (para o modal de ajuda)
-            let infoHTML = `
-                <p><strong>Paciente:</strong> ${currentCase.info.patient}</p>
-                <p><strong>Apresentação:</strong> ${currentCase.info.presentation}</p>
-                <p><strong>Exames laboratoriais:</strong></p>
-                <ul>`;
-            
-            currentCase.info.exams.forEach(exam => {
-                infoHTML += `<li>${exam}</li>`;
-            });
-            
-            infoHTML += `</ul><p><strong>Análise citométrica:</strong></p><ul>`;
-            
-            currentCase.info.cytometry.forEach(cyto => {
-                infoHTML += `<li>${cyto}</li>`;
-            });
-            
-            infoHTML += '</ul>';
-            
-            caseInfo.innerHTML = infoHTML;
-        }
-        
-        function showHelp() {
-            helpModal.style.display = 'flex';
-        }
-        
-        function closeHelp() {
-            helpModal.style.display = 'none';
-        }
-        
-        function submitDiagnosis(diagnosis) {
-            const currentCase = cases[currentCaseIndex];
-            const isCorrect = diagnosis === currentCase.correctAnswer;
-            
-            // Desativar botões após resposta
-            linfT.disabled = true;
-            mieloide.disabled = true;
-            linfB.disabled = true;
-            
-            // Mostrar resultado
-            resultsDiv.style.display = 'block';
-            resultsDiv.className = `results ${isCorrect ? 'correct' : 'incorrect'}`;
-            
-            if (isCorrect) {
-                resultsDiv.innerHTML = `
-                    <h3><i class="fas fa-check-circle"></i> Diagnóstico Correto!</h3>
-                    <p>Você acertou o diagnóstico deste caso.</p>
-                    <p>${currentCase.explanation}</p>
-                `;
-                score++;
-            } else {
-                let correctDiagnosis = "";
-                switch(currentCase.correctAnswer) {
-                    case "linfT": correctDiagnosis = "Leucemia Linfoide T"; break;
-                    case "mieloide": correctDiagnosis = "Leucemia Mieloide"; break;
-                    case "linfB": correctDiagnosis = "Leucemia Linfoide B"; break;
-                }
-                
-                resultsDiv.innerHTML = `
-                    <h3><i class="fas fa-times-circle"></i> Diagnóstico Incorreto</h3>
-                    <p>O diagnóstico correto era: ${correctDiagnosis}</p>
-                    <p>${currentCase.title}</p>
-                    <p>${currentCase.explanation}</p>
-                `;
-            }
-            
-            casesCompleted++;
-            
-            // Se todos os casos foram completados
-            if (casesCompleted === cases.length) {
-                nextCaseBtn.textContent = 'Ver Resultados Finais';
-            }
-        }
-        
-        function nextCase() {
-            // Se todos os casos foram completados, mostrar resultados finais
-            if (casesCompleted === cases.length) {
-                showFinalResults();
-                return;
-            }
-            
-            currentCaseIndex = (currentCaseIndex + 1) % cases.length;
-            loadCase(currentCaseIndex);
-        }
-        
-        function restartSimulation() {
-            currentCaseIndex = 0;
-            casesCompleted = 0;
-            score = 0;
-            nextCaseBtn.textContent = 'Próximo Caso';
-            nextCaseBtn.style.display = 'inline-block';
-            caseExplanation.style.display = 'none';
-            loadCase(currentCaseIndex);
-        }
-        
-        function showFinalResults() {
-            resultsDiv.style.display = 'block';
-            resultsDiv.className = 'results';
-            resultsDiv.innerHTML = `
-                <h3><i class="fas fa-trophy"></i> Simulação Concluída!</h3>
-                <p>Você completou ${cases.length} casos com ${score} diagnósticos corretos.</p>
-                <p>Taxa de acerto: ${Math.round((score / cases.length) * 100)}%</p>
-                <button class="btn btn-primary" id="restartFinalBtn">
-                    <i class="fas fa-redo"></i> Reiniciar Simulação
-                </button>
-            `;
-            
-            // Mostrar explicação dos casos
-            caseExplanation.style.display = 'block';
-            
-            // Esconder botão de próximo caso
-            nextCaseBtn.style.display = 'none';
-            
-            // Adicionar evento ao botão de reinício na tela final
-            document.getElementById('restartFinalBtn').addEventListener('click', restartSimulation);
-        }
-        
-        // Event Listeners
-        helpBtn.addEventListener('click', showHelp);
-        closeModal.addEventListener('click', closeHelp);
-        window.addEventListener('click', (e) => {
-            if (e.target === helpModal) closeHelp();
-        });
-        
-        linfT.addEventListener('click', () => submitDiagnosis("linfT"));
-        mieloide.addEventListener('click', () => submitDiagnosis("mieloide"));
-        linfB.addEventListener('click', () => submitDiagnosis("linfB"));
-        
-        nextCaseBtn.addEventListener('click', nextCase);
-        restartBtn.addEventListener('click', restartSimulation);
-        
-        // Inicializar
-        loadCase(currentCaseIndex);
-    </script>
+</div>
+
+<script>
+    const cases = [
+        { title: "Caso 1: Leucemia Linfoide T", images: ["https://www.mybeckman.com.br/resources/disease-research/leukemia-and-lymphoma/standardized-results-clinical-vignettes/case-5-tll-dxflex#","https://www.mybeckman.com.br/resources/disease-research/leukemia-and-lymphoma/standardized-results-clinical-vignettes/case-5-tll-dxflex#","https://media.beckman.com/-/media/flow-cytometry/products/reagents/clearllab/dxflex-casebook/c5/flow-cytometry-c10c-dxflex-case-5-t09-2024-06.jpg?rev=70bd2db364964c36a9ef967d6c483471"], info: {}, correctAnswer: "linfT", explanation: "Este caso demonstra uma população blástica com expressão de marcadores T (CD3, CD4, CD7), compatível com Leucemia Linfoide T." },
+        { title: "Caso 2: Leucemia Mieloide Aguda", images: ["https://www.mybeckman.com.br/resources/disease-research/leukemia-and-lymphoma/standardized-results-clinical-vignettes/case-7-mll-dxflex#","https://media.beckman.com/-/media/flow-cytometry/products/reagents/clearllab/dxflex-casebook/c7/flow-cytometry-c10c-dxflex-case-7-m210-2024-06.jpg?rev=11f25deb015e496eb28fe49d5a8e4e07","https://media.beckman.com/-/media/flow-cytometry/products/reagents/clearllab/dxflex-casebook/c7/flow-cytometry-c10c-dxflex-case-7-m213-v2-2024-06.jpg?rev=1d6f71172bed4226a97bcc20d57c762b"], info: {}, correctAnswer: "mieloide", explanation: "Este caso demonstra uma população anormal de blastos com expressão de marcadores mieloides (CD13, CD33) e células progenitoras (CD34, CD117), compatível com Leucemia Mieloide Aguda." },
+        { title: "Caso 3: Leucemia Linfoide B", images: ["","",""], info: {}, correctAnswer: "linfB", explanation: "Este caso demonstra uma população blástica com expressão de marcadores B (CD19, CD20, CD22), compatível com Leucemia Linfoide B." }
+    ];
+    const caseCounter = document.querySelector('.case-counter');
+    const resultsDiv = document.getElementById('results');
+    const linfT = document.getElementById('linfT');
+    const mieloide = document.getElementById('mieloide');
+    const linfB = document.getElementById('linfB');
+    const nextCaseBtn = document.getElementById('nextCaseBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const caseExplanation = document.getElementById('caseExplanation');
+    const imgs = [ document.getElementById('caseImg0'), document.getElementById('caseImg1'), document.getElementById('caseImg2') ];
+    let currentCaseIndex=0, casesCompleted=0, score=0;
+    function loadCase(i){
+        const c=cases[i]; caseCounter.textContent=`Caso ${i+1} de ${cases.length}`;
+        resultsDiv.style.display='none'; resultsDiv.className='results'; linfT.disabled=mieloide.disabled=linfB.disabled=false;
+        imgs.forEach((img,j)=>{img.src=c.images[j]; img.alt=`${c.title} - Imagem ${j+1}`;});
+    }
+    function submitDiagnosis(d){const c=cases[currentCaseIndex]; const ok=d===c.correctAnswer;
+        linfT.disabled=mieloide.disabled=linfB.disabled=true;
+        resultsDiv.style.display='block'; resultsDiv.className=`results ${ok?'correct':'incorrect'}`;
+        resultsDiv.innerHTML=ok?
+            `<h3><i class="fas fa-check-circle"></i> Diagnóstico Correto!</h3><p>${c.explanation}</p>`:
+            `<h3><i class="fas fa-times-circle"></i> Diagnóstico Incorreto</h3><p>O diagnóstico correto era: ${c.title}</p><p>${c.explanation}</p>`;
+        casesCompleted++; if(casesCompleted===cases.length) nextCaseBtn.textContent='Ver Resultados Finais';
+    }
+    function nextCase(){ if(casesCompleted===cases.length){ showFinalResults(); return;} currentCaseIndex=(currentCaseIndex+1)%cases.length; loadCase(currentCaseIndex);}    
+    function showFinalResults(){ resultsDiv.style.display='block'; resultsDiv.className='results'; resultsDiv.innerHTML=`<h3><i class="fas fa-trophy"></i> Simulação Concluída!</h3><p>Você completou ${cases.length} casos com ${score} acertos (${Math.round(score/cases.length*100)}%).</p><button class="btn btn-primary" id="restartFinalBtn"><i class="fas fa-redo"></i> Reiniciar Simulação</button>`; caseExplanation.style.display='block'; nextCaseBtn.style.display='none'; document.getElementById('restartFinalBtn').addEventListener('click', restartSimulation);}    
+    function restartSimulation(){ currentCaseIndex=casesCompleted=score=0; nextCaseBtn.textContent='Próximo Caso'; nextCaseBtn.style.display='inline-block'; caseExplanation.style.display='none'; loadCase(0);}    
+    linfT.addEventListener('click',()=>submitDiagnosis('linfT')); mieloide.addEventListener('click',()=>submitDiagnosis('mieloide')); linfB.addEventListener('click',()=>submitDiagnosis('linfB')); nextCaseBtn.addEventListener('click',nextCase); restartBtn.addEventListener('click',restartSimulation);
+    loadCase(0);
+</script>
 </body>
 </html>
